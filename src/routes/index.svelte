@@ -25,6 +25,10 @@
 		<div class="card">
 			<h3>{post.title}<small>&nbsp;: {post._id}</small></h3>
 			<p>{post.body}</p>
+			<form action="/?_method=DELETE" method="post">
+				<input type="hidden" name="id" value={post._id} />
+				<button type="submit">Delete</button>
+			</form>
 		</div>
 	{/each}
 </main>

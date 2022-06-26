@@ -21,9 +21,20 @@ export async function get({ url }) {
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export async function post({ request }) {
 	const data = await request.formData();
-	console.log('form submitted');
-	let post = new Post({ title: data.get('title'), body: data.get('body') });
+	const post = new Post({ title: data.get('title'), body: data.get('body') });
 	await post.save();
 
 	return { status: 201 };
+}
+
+export async function del({ request }) {
+	const form = await request.formData();
+	const id = form.get('id')
+	await Post.deleteOne({_id: id})
+	return {
+		status: 303,
+		headers: {
+			location: '/'
+		}
+	}
 }
